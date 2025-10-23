@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { 
+    height:100%; 
+    overflow-x:hidden; 
+    font-family:Arial,sans-serif; 
+    background:#000000;
+    color:white; 
+    scroll-behavior: smooth;
+}
+
+/* Dark water animated background */
+.water-layer {
+    position:fixed;
+    top:0;
+    left:0;
+    width:200%;
+    height:200%;
+    pointer-events:none;
+    opacity:0.6;
+}
+
+.water-layer1 {
+    background: 
+        radial-gradient(ellipse at 20% 30%, rgba(15,25,35,0.9) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(10,20,30,0.8) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(5,15,25,0.7) 0%, transparent 60%);
+    animation: waterDrift1 40s ease-in-out infinite;
+    z-index:1;
+     width:200%;
+    height:200%;
+}
+
+.water-layer2 {
+    background: 
+        radial-gradient(ellipse at 60% 20%, rgba(20,30,40,0.7) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 80%, rgba(12,22,32,0.6) 0%, transparent 50%);
+    animation: waterDrift2 50s ease-in-out infinite;
+    z-index:2;
+     width:200%;
+    height:200%;
+}
+
+.water-layer3 {
+    background: 
+        radial-gradient(ellipse at 70% 60%, rgba(8,18,28,0.8) 0%, transparent 40%),
+        radial-gradient(ellipse at 40% 40%, rgba(15,25,35,0.6) 0%, transparent 50%);
+    animation: waterDrift3 60s ease-in-out infinite;
+    z-index:3;
+     width:200%;
+    height:200%;
+}
+/*
+@keyframes waterDrift1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-5%, 3%) scale(1.05); }
+    66% { transform: translate(3%, -2%) scale(0.95); }
+}
+
+@keyframes waterDrift2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(4%, -3%) scale(0.98); }
+    66% { transform: translate(-3%, 4%) scale(1.03); }
+}
+
+@keyframes waterDrift3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(-4%, -2%) scale(1.02); }
+    66% { transform: translate(2%, 3%) scale(0.97); }
+}
+*/
+/* Floating particles */
+.particles {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:10;
+}
+
+.particle {
+    position:absolute;
+    background:rgba(120,140,160,0.4);
+    border-radius:50%;
+    filter:blur(1px);
+    box-shadow: 0 0 3px rgba(150,170,190,0.3);
+    transition: all 0.2s ease-out;
+}
+
+/* Neon glow pulse */
+@keyframes glowPulse {
+    0% { text-shadow: 0 0 5px rgba(0,255,255,0.2); }
+    50% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff; }
+    100% { text-shadow: 0 0 5px rgba(0,255,255,0.2); }
+}
+
+#menu ul li a:hover {
+    color:#00ffff;
+    text-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff, 0 0 45px #00ffff;
+}
+
+/* Content */
+.content {
+    position:relative;
+    z-index:100;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    padding:0 40px;
+}
+
+.content h1 {
+    font-size:4rem;
+    color:white;
+    text-shadow: 0 0 15px rgba(0,255,255,0.5);
+    animation: fadeIn 2s ease forwards;
+    opacity:0;
+    text-align:center;
+}
+
+.content p {
+    font-size:2rem;
+    color:white;
+    text-shadow: 0 0 15px rgba(0,255,255,0.5);
+    animation: fadeIn 2s ease forwards;
+    opacity:0;
+    text-align: left;
+}
+
+@keyframes fadeIn { to { opacity:1; } }
+.ui-btn {
+  --btn-default-bg: rgb(41, 41, 41);
+  --btn-padding: 15px 20px;
+  --btn-hover-bg: rgb(51, 51, 51);
+  --btn-transition: .3s;
+  --btn-letter-spacing: .1rem;
+  --btn-animation-duration: 1.2s;
+  --btn-shadow-color: rgba(0, 0, 0, 0.137);
+  --btn-shadow: 0 2px 10px 0 var(--btn-shadow-color);
+  --hover-btn-color: #FAC921;
+  --default-btn-color: #fff;
+  --font-size: 16px;
+  /* 👆 this field should not be empty */
+  --font-weight: 600;
+  --font-family: Menlo,Roboto Mono,monospace;
+  /* 👆 this field should not be empty */
+}
+
+/* button settings 👆 */
+
+.ui-btn {
+  box-sizing: border-box;
+  padding: var(--btn-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--default-btn-color);
+  font: var(--font-weight) var(--font-size) var(--font-family);
+  background: var(--btn-default-bg);
+  border: none;
+  cursor: pointer;
+  transition: var(--btn-transition);
+  overflow: hidden;
+  box-shadow: var(--btn-shadow);
+}
+
+.ui-btn span {
+  letter-spacing: var(--btn-letter-spacing);
+  transition: var(--btn-transition);
+  box-sizing: border-box;
+  position: relative;
+  background: inherit;
+}
+
+.ui-btn span::before {
+  box-sizing: border-box;
+  position: absolute;
+  content: "";
+  background: inherit;
+}
+
+.ui-btn:hover, .ui-btn:focus {
+  background: var(--btn-hover-bg);
+}
+
+.ui-btn:hover span, .ui-btn:focus span {
+  color: var(--hover-btn-color);
+}
+
+.ui-btn:hover span::before, .ui-btn:focus span::before {
+  animation: chitchat linear both var(--btn-animation-duration);
+}
+
+@keyframes chitchat {
+  0% {
+    content: "#";
+  }
+
+  5% {
+    content: ".";
+  }
+
+  10% {
+    content: "^{";
+  }
+
+  15% {
+    content: "-!";
+  }
+
+  20% {
+    content: "#$_";
+  }
+
+  25% {
+    content: "№:0";
+  }
+
+  30% {
+    content: "#{+.";
+  }
+
+  35% {
+    content: "@}-?";
+  }
+
+  40% {
+    content: "?{4@%";
+  }
+
+  45% {
+    content: "=.,^!";
+  }
+
+  50% {
+    content: "?2@%";
+  }
+
+  55% {
+    content: "\;1}]";
+  }
+
+  60% {
+    content: "?{%:%";
+    right: 0;
+  }
+
+  65% {
+    content: "|{f[4";
+    right: 0;
+  }
+
+  70% {
+    content: "{4%0%";
+    right: 0;
+  }
+
+  75% {
+    content: "'1_0<";
+    right: 0;
+  }
+
+  80% {
+    content: "{0%";
+    right: 0;
+  }
+
+  85% {
+    content: "]>'";
+    right: 0;
+  }
+
+  90% {
+    content: "4";
+    right: 0;
+  }
+
+  95% {
+    content: "2";
+    right: 0;
+  }
+
+  100% {
+    content: "";
+    right: 0;
+  }
+}
+/* Navigation Menu */
+#menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+#menu ul {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0 40px;
+}
+
+#menu ul li {
+  flex: 1;
+  text-align: center;
+}
+
+/* Updated UI Button Style */
+.ui-btn {
+text-decoration: none;
+  background: none !important;
+  box-shadow: none !important;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: Menlo, Roboto Mono, monospace;
+  text-shadow: 0 0 15px rgb(255, 255, 255);
+  transition: text-shadow 0.3s ease, color 0.3s ease;
+  padding: 15px 0;
+  border: none;
+  cursor: pointer;
+}
+
+.ui-btn span {
+  letter-spacing: 0.1rem;
+}
+
+.ui-btn:hover span {
+  color: #85f6f6;
+  text-shadow: 0 0 15px #b4f2f2, 0 0 30px #00ffff, 0 0 45px #a4ffff;
+}
+</style>
+</head>
+<body>
+
+<!-- Water layers -->
+<div class="water-layer water-layer1"></div>
+<div class="water-layer water-layer2"></div>
+<div class="water-layer water-layer3"></div>
+
+<!-- Particles -->
+<div class="particles" id="particles"></div>
+
+<!-- Navigation Menu -->
+<nav id="menu">
+  <ul>
+     <li><a href="index.html" class="ui-btn"><span>About Me</span></a></li>
+    <li><a href="projects.html" class="ui-btn"><span>Projects</span></a></li>
+    <li><a href="exp.html" class="ui-btn"><span>Experience</span></a></li>
+    <li><a href="skill.html" class="ui-btn"><span>Skills</span></a></li>
+    <li><a href="contact.html" class="ui-btn"><span>Contact</span></a></li>
+  </ul>
+</nav>
+
+<!-- Content -->
+<div class="content" id="welcome">
+    <h1>My Experience</h1>
+</div>
+
+<script>
+// Particle setup with hover glow/pop effect
+const particleContainer = document.getElementById('particles');
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+function createParticle() {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+
+    const size = Math.random() * 4 + 2;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+
+    const startX = Math.random() * 100;
+    const startY = Math.random() * 100;
+    particle.style.left = startX + '%';
+    particle.style.top = startY + '%';
+    particle.dataset.startX = startX;
+    particle.dataset.startY = startY;
+    particle.dataset.baseOpacity = Math.random() * 0.4 + 0.2;
+
+    particleContainer.appendChild(particle);
+
+    animateParticle(particle);
+}
+
+function animateParticle(particle) {
+    const duration = Math.random() * 20000 + 15000;
+    const startX = parseFloat(particle.dataset.startX);
+    const startY = parseFloat(particle.dataset.startY);
+    const endX = startX + (Math.random() - 0.5) * 60;
+    const endY = startY + (Math.random() - 0.5) * 60;
+    const baseOpacity = parseFloat(particle.dataset.baseOpacity);
+    const startTime = Date.now();
+
+    function update() {
+        const elapsed = Date.now() - startTime;
+        const progress = (elapsed % duration) / duration;
+
+        const eased = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+        particle.style.left = startX + (endX - startX) * eased + '%';
+        particle.style.top = startY + (endY - startY) * eased + '%';
+
+        // Hover interaction: pop/glow near mouse
+        const rect = particle.getBoundingClientRect();
+        const px = rect.left + rect.width / 2;
+        const py = rect.top + rect.height / 2;
+        const dx = mouseX - px;
+        const dy = mouseY - py;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+
+        if (dist < 150) {
+            const repel = (150 - dist)/150;
+            const angle = Math.atan2(dy, dx);
+            particle.style.transform = `translate(${-Math.cos(angle)*repel*3}px, ${-Math.sin(angle)*repel*3}px) scale(${1 + repel*0.5})`;
+            particle.style.opacity = Math.min(baseOpacity * (1 + repel*0.8), 1);
+        } else {
+            particle.style.transform = 'translate(0,0) scale(1)';
+            particle.style.opacity = Math.sin(progress*Math.PI) * baseOpacity;
+        }
+
+        requestAnimationFrame(update);
+    }
+    update();
+}
+
+for (let i = 0; i < 50; i++) createParticle();
+
+// Dropdown menu hover at top
+const menu = document.getElementById('menu');
+document.addEventListener('mousemove', e => {
+    if (e.clientY < 50) menu.style.top = '0';
+    else menu.style.top = '-60px';
+});
+</script>
+
+</body>
+</html>
