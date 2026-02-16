@@ -110,13 +110,50 @@ html, body {
 
 /* Content */
 .content {
-    position:relative;
-    z-index:100;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    flex-direction:column;
-    padding:0 40px;
+  position:relative;
+  z-index:100;
+  min-height:100vh;
+  display:flex;
+  justify-content:flex-start;
+  flex-direction:column;
+  padding:80px 40px 40px;
+}
+
+/* Contact layout */
+.contact-list {
+  max-width:900px;
+  margin: 1rem auto 3rem;
+  padding: 0 20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  align-items:center;
+}
+.contact-list p { margin:0; }
+.contact-link {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 16px;
+  border-radius:10px;
+  background:rgba(0,255,255,0.04);
+  color:#e6ffff;
+  text-decoration:none;
+  border:1px solid rgba(0,255,255,0.08);
+  transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  font-weight:600;
+}
+.contact-link:hover, .contact-link:focus {
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,255,255,0.08);
+  background:rgba(0,255,255,0.08);
+  outline:none;
+}
+.contact-link .label { color:inherit; }
+
+@media (max-width:600px) {
+  .contact-list { flex-direction:column; align-items:stretch; }
+  .contact-link { width:100%; justify-content:center; }
 }
 
 .content h1 {
@@ -370,9 +407,20 @@ text-decoration: none;
 </nav>
 
 <!-- Content -->
-<div class="content" id="welcome">
-    <h1>Contact</h1>
-</div>
+<main class="content" id="contact">
+  <h1>Contact</h1>
+
+  <div class="contact-list">
+    <p><a class="contact-link" href="mailto:nathanc5501@gmail.com" aria-label="Email Nathan">Email</a></p>
+
+    <p><a class="contact-link" href="https://www.linkedin.com/in/nathan-chan-57aa012ba/" target="_blank" rel="noopener" aria-label="Nathan's LinkedIn profile">LinkedIn</a></p>
+
+    <p><a class="contact-link" href="https://github.com/DeepFryer123" target="_blank" rel="noopener" aria-label="Nathan's GitHub profile">GitHub</a></p>
+
+    <p><a class="contact-link" href="https://devpost.com/DeepFryer123?ref_content=user-portfolio&ref_feature=portfolio&ref_medium=global-nav" target="_blank" rel="noopener" aria-label="Nathan's Devpost profile">Devpost</a></p>
+  </div>
+
+</main>
 
 <script>
 // Particle setup with hover glow/pop effect

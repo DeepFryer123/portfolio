@@ -137,6 +137,47 @@ html, body {
     text-align: left;
 }
 
+/* About body specific rules */
+.about-body {
+  padding-top: 20px;
+}
+.about-body p {
+  font-size:1.15rem;
+  max-width:900px;
+  margin: 0.9rem auto;
+  line-height:1.65;
+  text-align: left;
+}
+
+/* Profile photo layout */
+.profile {
+  max-width:1100px;
+  margin: 0 auto;
+}
+.profile-photo {
+  width:160px;
+  height:160px;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid rgba(0,255,255,0.12);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  flex: 0 0 160px;
+}
+.profile-text {
+  flex: 1 1 auto;
+}
+
+@media (min-width:800px) {
+  .profile { display:flex; gap:30px; align-items:flex-start; }
+  .about-body p { margin: 0.6rem 0; }
+}
+
+@media (max-width:799px) {
+  .profile { display:block; text-align:center; }
+  .profile-photo { margin: 0 auto 1rem; display:block; }
+  .profile-text { text-align:left; }
+}
+
 @keyframes fadeIn { to { opacity:1; } }
 .ui-btn {
   --btn-default-bg: rgb(41, 41, 41);
@@ -370,9 +411,29 @@ text-decoration: none;
 </nav>
 
 <!-- Content -->
-<div class="content" id="welcome">
-    <h1>gurt</h1>
-</div>
+<main class="content" id="about">
+  <section class="about container" aria-labelledby="about-heading">
+    <h1 id="about-heading">About Me</h1>
+    <div class="about-body">
+      <div class="profile">
+     <!-- Image currently sits in images/profile.jpg/20250628_131910.jpg —
+       if you prefer a simpler path, move/rename that file to images/profile.jpg -->
+     <img class="profile-photo" src="images/profile.jpg/20250628_131910.jpg" alt="Nathan's profile photo">
+        <div class="profile-text">
+          <p>Hi, my name is Nathan. I am a high school junior based in Milton, Massachusetts with a strong interest in computer science, full stack development, and building real products that solve real problems.</p>
+
+          <p>I started programming because I was curious about how software actually works. That curiosity turned into building projects, competing in hackathons, and studying computer science beyond the classroom. I earned a 5 on the AP Computer Science A exam as a freshman and continue to challenge myself through advanced coursework and independent projects.</p>
+
+          <p>I am especially interested in creating platforms that bring people together. I have seen how hard it is for young developers to find serious collaborators outside of short term events. That is why I am building tools focused on long term teamwork, structured collaboration, and meaningful project development.</p>
+
+          <p>Beyond coding, I am involved in robotics, science olympiad, and my school's math team, I also enjoy playing volleyball and working through complex problems while building projects aimed for real impact.</p>
+
+          <p>I am always looking to improve, take on harder challenges, and build things that matter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
 <script>
 // Particle setup with hover glow/pop effect

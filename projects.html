@@ -110,13 +110,13 @@ html, body {
 
 /* Content */
 .content {
-    position:relative;
-    z-index:100;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    flex-direction:column;
-    padding:0 40px;
+  position:relative;
+  z-index:100;
+  min-height:100vh; /* allow content to grow beyond one viewport */
+  display:flex;
+  justify-content:flex-start;
+  flex-direction:column;
+  padding:80px 40px 40px; /* top padding so fixed nav doesn't cover content */
 }
 
 .content h1 {
@@ -135,6 +135,37 @@ html, body {
     animation: fadeIn 2s ease forwards;
     opacity:0;
     text-align: left;
+}
+
+/* Projects layout */
+.projects-list {
+  max-width:1100px;
+  margin: 1.5rem auto 3rem;
+  padding: 0 20px;
+}
+.project {
+  margin: 1.5rem 0 2rem;
+  padding: 1.2rem 1.4rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+.project h2 {
+  margin-bottom: 0.4rem;
+  color: #e6ffff;
+}
+.project .subtitle {
+  color: #9fdcff;
+  font-size:0.95rem;
+  margin-bottom:0.8rem;
+}
+.project p { color: #dfeff0; font-size:1rem; line-height:1.6; }
+.project ul { margin-left:1.2rem; color:#dfeff0; }
+.project .meta { font-size:0.95rem; color:#a7dfe0; margin-bottom:0.6rem; }
+
+@media (max-width:799px) {
+  .content { padding: 20px; }
+  .projects-list { padding: 0 8px; }
 }
 
 @keyframes fadeIn { to { opacity:1; } }
@@ -370,9 +401,94 @@ text-decoration: none;
 </nav>
 
 <!-- Content -->
-<div class="content" id="welcome">
-    <h1>Projects</h1>
-</div>
+<main class="content" id="projects">
+  <h1>Projects</h1>
+
+  <div class="projects-list">
+
+    <article class="project" id="commonroom">
+      <h2>Commonroom</h2>
+      <div class="subtitle">In Active Development</div>
+      <p class="meta">Overview</p>
+      <p>Commonroom is a collaboration platform being built to connect younger developers with serious, long term project teams outside the short lifecycle of hackathons.</p>
+
+      <p class="meta">Problem</p>
+      <p>Student developers often struggle to find committed collaborators once events end. Existing platforms are either adult focused, socially driven, or lack structured project coordination tools.</p>
+
+      <p class="meta">Solution</p>
+      <p>Commonroom is designed to support skill based discovery, structured team formation, and organized project collaboration in one system.</p>
+
+      <p class="meta">Technical Focus</p>
+      <ul>
+        <li>Backend architecture and relational data modeling</li>
+        <li>Authentication and role based permission systems</li>
+        <li>Project, team, and membership schema design</li>
+        <li>Scalable collaboration workflows and messaging logic</li>
+        <li>Designing for extensibility before UI polish</li>
+      </ul>
+
+      <p class="meta">Engineering Approach</p>
+      <p>The system is being built with a backend first mindset. The focus is on clean abstractions, maintainable data relationships, and well defined permission boundaries before interface refinement.</p>
+
+      <p class="meta">Status</p>
+      <p>Core feature architecture and database structure are under active development.</p>
+    </article>
+
+    <hr>
+
+    <article class="project" id="moonlink">
+      <h2>Moonlink</h2>
+    <div class="subtitle">Solaris Hackathon — 3rd Place</div>
+      <p class="meta">Overview</p>
+      <p>Moonlink is a TCP based communication prototype exploring node driven networking without reliance on traditional internet infrastructure.</p>
+
+      <p class="meta">Concept</p>
+      <p>The system simulates distributed nodes communicating in constrained or foreign environments where centralized connectivity may not exist. The goal was to prototype decentralized message passing under time pressure.</p>
+
+      <p class="meta">Technical Work</p>
+      <ul>
+        <li>Implemented TCP socket communication between independent nodes</li>
+        <li>Designed structured message formatting for consistent transmission</li>
+        <li>Simulated decentralized routing logic across nodes</li>
+        <li>Focused on modular architecture to allow protocol expansion</li>
+      </ul>
+
+      <p class="meta">Engineering Focus</p>
+      <p>This project emphasized low level networking concepts, protocol design, and reliability considerations in distributed systems.</p>
+
+      <p class="meta">Outcome</p>
+      <p>Delivered a functional proof of concept that demonstrated structured, reliable communication between simulated nodes within a hackathon timeframe.</p>
+    </article>
+
+    <hr>
+
+    <article class="project" id="noctura">
+      <h2>Noctura</h2>
+      <div class="subtitle">MIT Blueprint 2025</div>
+      <p class="meta">Overview</p>
+      <p>Noctura is a hardware based heart rate tracking prototype aimed at helping individuals better understand physiological patterns associated with insomnia.</p>
+
+      <p class="meta">Concept</p>
+      <p>The system uses light based sensing to approximate blood flow changes and derive heart rate data. The objective was to explore how simple biometric inputs could translate into actionable sleep related feedback.</p>
+
+      <p class="meta">Technical Work</p>
+      <ul>
+        <li>Built a pulse sensing system using an Arduino microcontroller</li>
+        <li>Used photoresistors to detect changes in blood flow through light absorption</li>
+        <li>Processed analog signals to extract heart rate patterns</li>
+        <li>Designed compact exterior to be more accessible for at home use</li>
+      </ul>
+
+      <p class="meta">Engineering Focus</p>
+      <p>The project emphasized hardware integration, signal processing fundamentals, and working within physical constraints such as inconsistent lighting and sensor instability.</p>
+
+      <p class="meta">Outcome</p>
+      <p>Produced a functional hardware prototype capable of real time heart rate tracking within a limited development window.</p>
+    </article>
+
+  </div>
+
+</main>
 
 <script>
 // Particle setup with hover glow/pop effect

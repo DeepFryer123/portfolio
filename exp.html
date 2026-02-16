@@ -110,13 +110,35 @@ html, body {
 
 /* Content */
 .content {
-    position:relative;
-    z-index:100;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    flex-direction:column;
-    padding:0 40px;
+  position:relative;
+  z-index:100;
+  min-height:100vh;
+  display:flex;
+  justify-content:flex-start;
+  flex-direction:column;
+  padding:80px 40px 40px;
+}
+
+/* Experience layout */
+.experience-list {
+  max-width:1100px;
+  margin: 1rem auto 3rem;
+  padding: 0 20px;
+}
+.experience-item {
+  margin: 1.25rem 0 2rem;
+  padding: 1.1rem 1.2rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+}
+.experience-item h2 { color:#e6ffff; margin-bottom:0.2rem; }
+.experience-item .role { color:#9fdcff; margin-bottom:0.6rem; }
+.experience-item p, .experience-item li { color:#dfeff0; line-height:1.6; }
+.experience-item ul { margin-left:1.2rem; }
+
+@media (max-width:799px) {
+  .content { padding: 20px; }
+  .experience-list { padding: 0 8px; }
 }
 
 .content h1 {
@@ -370,9 +392,68 @@ text-decoration: none;
 </nav>
 
 <!-- Content -->
-<div class="content" id="welcome">
-    <h1>My Experience</h1>
-</div>
+<main class="content" id="experience">
+  <h1>Experience</h1>
+
+  <div class="experience-list">
+
+    <section class="experience-item" id="milton-static">
+      <h2>Milton Static 5060 Robotics Team</h2>
+      <div class="role">Treasurer, Code Team Member — FIRST Tech Challenge</div>
+
+      <ul>
+        <li>Elected Treasurer responsible for budgeting and financial planning during build season</li>
+        <li>Managed parts purchasing and resource allocation to support engineering priorities</li>
+        <li>Member of the code team, contributing to robot control logic and subsystem integration</li>
+        <li>Helped organize and maintain the team codebase using GitHub for version control and collaboration</li>
+        <li>Placed 1st overall at the Brookline Qualifier Tournament; advanced to Massachusetts State Championship and Regional competition</li>
+        <li>Recipient of FTC Design Award and Innovate Award</li>
+      </ul>
+    </section>
+
+    <section class="experience-item" id="math-team">
+      <h2>Milton Math Team</h2>
+      <div class="role">Starting Competitor — Southern Massachusetts Math League</div>
+      <ul>
+  <li>Founding member of the revived Milton Math Team</li>
+  <li>Selected as a starting competitor in interscholastic league competitions</li>
+        <li>Contributed to team scoring across SMML meets</li>
+        <li>Advanced to regional competition last season</li>
+      </ul>
+    </section>
+
+    <section class="experience-item" id="science-olympiad">
+      <h2>Milton Science Olympiad</h2>
+      <div class="role">Starting Competitor, 4 Events — First Year Program</div>
+      <ul>
+        <li>Founding competitor in the inaugural year of the program</li>
+        <li>Competed in Machines, Robot Tour, CAD, and Materials Science</li>
+        <li>Earned 6th place medal in Materials Science at the Harvard University Science Olympiad Invitational</li>
+      </ul>
+    </section>
+
+    <section class="experience-item" id="cmu">
+      <h2>Carnegie Mellon University — Summer Coursework (June to August 2025)</h2>
+      <div class="role">Courses completed: 15-122 &amp; 21-127</div>
+      <ul>
+        <li><strong>15-122: Principles of Imperative Computation</strong> — Implemented data structures and algorithms under formal specifications; reasoned about correctness, memory, and abstraction.</li>
+        <li><strong>21-127: Concepts of Mathematics</strong> — Developed proof based reasoning through induction, relations, and discrete structures; strengthened theoretical foundations for computer science.</li>
+      </ul>
+    </section>
+
+    <section class="experience-item" id="schoolhouse">
+      <h2>Schoolhouse</h2>
+      <div class="role">SAT Math Tutor — Certified since 2023</div>
+      <ul>
+        <li>Provided one-on-one SAT Math tutoring with structured lesson plans and problem walkthroughs</li>
+        <li>Designed practice sets focused on algebra, geometry, and advanced problem solving techniques</li>
+        <li>Helped students improve scores through targeted concept review and test-taking strategies</li>
+      </ul>
+    </section>
+
+  </div>
+
+</main>
 
 <script>
 // Particle setup with hover glow/pop effect
