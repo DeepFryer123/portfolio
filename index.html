@@ -75,6 +75,42 @@ html, body {
     66% { transform: translate(2%, 3%) scale(0.97); }
 }
 */
+
+/* Gentle water drift to simulate deep water motion */
+@keyframes waterDrift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-3%, 2%) scale(1.02); }
+  66% { transform: translate(2%, -1%) scale(0.99); }
+}
+
+@keyframes waterDrift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(4%, -2%) scale(1.01); }
+  66% { transform: translate(-2%, 3%) scale(0.995); }
+}
+
+@keyframes waterDrift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-2%, -1%) scale(1.01); }
+  66% { transform: translate(1.5%, 2%) scale(0.995); }
+}
+
+/* Subtle ripple overlay that slowly shifts to add fine-grain water motion */
+@keyframes surfaceRipple {
+  0% { opacity: 0.04; transform: translateY(0); }
+  50% { opacity: 0.06; transform: translateY(4px); }
+  100% { opacity: 0.04; transform: translateY(0); }
+}
+
+.water-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.02), transparent 35%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  animation: surfaceRipple 10s ease-in-out infinite;
+}
 /* Floating particles */
 .particles {
     position:fixed;
@@ -94,6 +130,18 @@ html, body {
     filter:blur(1px);
     box-shadow: 0 0 3px rgba(150,170,190,0.3);
     transition: all 0.2s ease-out;
+}
+
+/* Flashlight overlay */
+.flashlight {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:900; /* below menu (1000) but above water/particles */
+  --fx-size: 240px;
+  background: radial-gradient(circle var(--fx-size) at var(--mx,50%) var(--my,50%), rgba(255,255,255,0.12), rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.85) 70%);
+  mix-blend-mode: overlay;
+  transition: background-position .02s linear;
 }
 
 /* Neon glow pulse */
@@ -343,10 +391,13 @@ html, body {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: transparent;
+  background: rgba(0,0,0,0.45);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
-  padding: 10px 0;
+  padding: 12px 0;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
 }
 
 #menu ul {
@@ -398,6 +449,9 @@ text-decoration: none;
 
 <!-- Particles -->
 <div class="particles" id="particles"></div>
+
+<!-- Flashlight cursor effect -->
+<div class="flashlight" id="flashlight" aria-hidden="true"></div>
 
 <!-- Navigation Menu -->
 <nav id="menu">
@@ -509,12 +563,24 @@ function animateParticle(particle) {
 
 for (let i = 0; i < 50; i++) createParticle();
 
-// Dropdown menu hover at top
+// Keep the menu bar visible and enable cursor flashlight on this page
 const menu = document.getElementById('menu');
+if (menu) menu.style.top = '0';
+
 document.addEventListener('mousemove', e => {
-    if (e.clientY < 50) menu.style.top = '0';
-    else menu.style.top = '-60px';
+  const mx = e.clientX + 'px';
+  const my = e.clientY + 'px';
+  document.documentElement.style.setProperty('--mx', mx);
+  document.documentElement.style.setProperty('--my', my);
 });
+
+document.addEventListener('touchmove', e => {
+  if (e.touches && e.touches[0]) {
+    const t = e.touches[0];
+    document.documentElement.style.setProperty('--mx', t.clientX + 'px');
+    document.documentElement.style.setProperty('--my', t.clientY + 'px');
+  }
+}, { passive: true });
 </script>
 
 </body>
