@@ -211,6 +211,21 @@ html, body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.6);
   flex: 0 0 160px;
 }
+
+/* Fixed clone of profile photo so it remains visually untouched by the flashlight overlay */
+.profile-photo-clone {
+  position:fixed;
+  z-index:950; /* above flashlight (900) but below menu (1000) */
+  width:160px;
+  height:160px;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid rgba(0,255,255,0.12);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  pointer-events:none;
+  display:none; /* shown once JS positions it */
+  will-change: top, left, width, height, transform;
+}
 .profile-text {
   flex: 1 1 auto;
 }
@@ -581,6 +596,39 @@ document.addEventListener('touchmove', e => {
     document.documentElement.style.setProperty('--my', t.clientY + 'px');
   }
 }, { passive: true });
+
+// Keep profile photo visually untouched by the flashlight by cloning it into
+// a fixed element layered above the flashlight overlay (but below the menu).
+(function protectProfilePhoto(){
+  const orig = document.querySelector('.profile-photo');
+  if (!orig) return;
+  const clone = document.createElement('img');
+  clone.className = 'profile-photo-clone';
+  clone.alt = orig.alt || '';
+  // copy src (works if image is in same-origin or local file)
+  clone.src = orig.src;
+  document.body.appendChild(clone);
+
+  // hide original visually but keep it in the layout
+  orig.style.visibility = 'hidden';
+
+  function updateClone() {
+    const r = orig.getBoundingClientRect();
+    clone.style.width = r.width + 'px';
+    clone.style.height = r.height + 'px';
+    clone.style.left = r.left + 'px';
+    clone.style.top = r.top + 'px';
+    clone.style.display = 'block';
+  }
+
+  // initial position and on resize/scroll
+  updateClone();
+  window.addEventListener('resize', updateClone);
+  window.addEventListener('scroll', updateClone, { passive: true });
+  // also reposition occasionally in case fonts/images change
+  const ro = new ResizeObserver(updateClone);
+  ro.observe(orig);
+})();
 </script>
 
 </body>
